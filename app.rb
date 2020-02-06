@@ -9,6 +9,12 @@ class App < Sinatra::Base
   post '/' do
     text_from_user = params[:user_text]
 
+    @analyzed_text = TextAnalyzer.new(text_from_user)
+    @letter_hash = @analyzed_text.most_used_letter
+    @letter_key = @letter_hash.keys.first
+    @letter = @letter_key.capitalize
+    #binding.pry
+    @letter_count = @letter_hash[@letter_key]
     erb :results
   end
 end
